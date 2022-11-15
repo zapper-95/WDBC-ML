@@ -1,6 +1,8 @@
 # COMP2261 Artificial Intelligence – Machine Learning 2022/2023
 # Deadline for submission: 19 January 2023 14:00 (GMT)
+https://durhamuniversity-my.sharepoint.com/:w:/r/personal/jbtl68_durham_ac_uk/_layouts/15/Doc.aspx?sourcedoc=%7B63141803-C55F-453E-BE1B-8D9E1A3EA592%7D&file=Group%209.docx&action=default&mobileredirect=true&DefaultItemOpen=1&login_hint=jbtl68%40durham.ac.uk&ct=1668521973359&wdOrigin=OFFICECOM-WEB.START.EDGEWORTH&cid=941ba1d1-6fa3-4a4f-bd6f-4fb11cacc373
 
+https://archive-beta.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
 ## 1      Introduction
 You are to work on a project in a group. The project can be chosen from a variety of topics and datasets. In your group, you should have regular meetings to discuss any aspects of the assignment. You can split the tasks however you wish, but you are encouraged to collaborate on each part rather than doing an isolated division of tasks.
 

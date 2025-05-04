@@ -1,59 +1,59 @@
-# COMP2261 Artificial Intelligence – Machine Learning 2022/2023
-# Deadline for submission: 19 January 2023 14:00 (GMT)
-https://durhamuniversity-my.sharepoint.com/:w:/r/personal/jbtl68_durham_ac_uk/_layouts/15/Doc.aspx?sourcedoc=%7B63141803-C55F-453E-BE1B-8D9E1A3EA592%7D&file=Group%209.docx&action=default&mobileredirect=true&DefaultItemOpen=1&login_hint=jbtl68%40durham.ac.uk&ct=1668521973359&wdOrigin=OFFICECOM-WEB.START.EDGEWORTH&cid=941ba1d1-6fa3-4a4f-bd6f-4fb11cacc373
+# Breast Cancer Classification with Machine Learning
 
-Advice from the demonstrator: Justify everything you do be referencing the following: the task, the data, the model
+## Project Overview
 
-https://archive-beta.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
-## 1      Introduction
-You are to work on a project in a group. The project can be chosen from a variety of topics and datasets. In your group, you should have regular meetings to discuss any aspects of the assignment. You can split the tasks however you wish, but you are encouraged to collaborate on each part rather than doing an isolated division of tasks.
+Every year \~55,900 people in the UK are diagnosed with breast cancer. Early, accurate detection saves lives and reduces pressure on clinical resources.
+This project compares three machine learning algorithms: **Logistic Regression, K-Nearest Neighbours (KNN), and Support Vector Machine (SVM)** on the **Wisconsin Diagnostic Breast Cancer (WDBC)** dataset.
 
-## 2      Grouping
-You are to find two classmates to form a coursework group of three students in Week 4 and Week 5. In the practical sessions, let the demonstrators know your group members. You may ask the demonstrators for help, should you have difficulty forming a group. If you have not formed a group by the end of Week 5, you may be randomly assigned to a group with another two students.
+A more detailed description of our methadology and results can be found in `Group_9.pdf`.
 
-## 3      Project
-Working with your group members, your first task is to scope your project. That includes finding a dataset and defining the machine learning tasks. Your project should be feasible for the group to achieve before the submission deadline, as stated above. It should have a significant amount of experimentation, such as data exploration and pre-processing, model training and evaluation, comparisons, analysis, and discussions.
+## Dataset
 
-## 4      Data
-Use a dataset that interests you from https://archive-beta.ics.uci.edu
+* 569 samples (212 malignant, 357 benign)
+* 32 real-valued features extracted from digitised images of FNA breast-tissue nuclei
+* Source: UCI Machine Learning Repository
 
-## 5      Submission and Marking Scheme
-### 5.1     Code file (0%)
-The file should have the name of [CIS_username_1+CIS_username_2(+CIS_username_3)].zip (or .tar), and it should include all the notebook (.ipynb) files you used for the project. In each notebook file, comments should be given when necessary. Your code files are not going to be marked, but no-submission or not-working code will result in a zero mark for the whole summative assignment. Plagiarism and collusion checks will be performed on your code files. You may be subject to a brief viva in February, to ensure it is your own work.
+## Pipeline
 
-### 5.2     Project report in PDF up to 6 pages (90%)
-The PDF file should have the name of [group_name].pdf, max 6 pages (including everything). Only ONE of your group members makes the submission on Ultra.
+1. **Exploratory Data Analysis** – statistical summaries, distribution plots, outlier detection.
+2. **Pre-processing**
 
-### 5.2.1     Title, Abstract, Keywords, Introduction (10%)
-Provide a brief introduction to the project. Precisely define the problem you are solving, i.e., formally specify the inputs and outputs. Frame the problem as a machine learning task. Explain why this task is interesting and important.
+   * Dropped `id` column
+   * Transformation Scalars and PCA (retain 95% variance)
+   * Stratified 80 / 20 split, 7-fold cross-validation (×3 repeats)
+3. **Model Training**
 
-### 5.2.2     Exploratory Data Analysis and Data Preparation (14%)
-Summarise the main characteristics of the dataset, using tables and statistical graphics, and/or other data visualisation methods. Describe how you split the dataset and present stats such as count, mean, etc. Describe how you constructed and/or transformed the data/feature.
+   * **LogReg**: solvers {lbfgs, liblinear…}, C ∈ 10⁻³…10³, penalties {L1, L2}
+   * **KNN**: k ∈ {1, 3, 5, 9, 15, 23}, metrics {euclidean, manhattan, minkowski}
+   * **SVM**: kernels {linear, poly, rbf, sigmoid}, C ∈ 10⁻³…10³, γ {scale, auto}
+4. **Evaluation Metrics** – Matthews Correlation Coefficient (MCC) primary, plus Recall, F₂, Specificity, ROC-AUC.
 
-### 5.2.3     Learning Algorithm Selection (10%)
-Choose three machine learning algorithms, which are not necessarily taught in this submodule. They cannot be based on deep learning or reinforcement learning. Explain why the chosen algorithms are appropriate for the project.
+## Results
 
-### 5.2.4     Model Training and Evaluation (30%)
-Describe the training process, including the parameters involved and how they fit, concerns about underfitting and/or overfitting, and concerns about the convergence of the optimisation. Describe the hyperparameter selection and tuning process, including the hyperparameters involved and how they were selected and tuned, the candidate values that were considered, and the performance metrics that were used for optimisation. Describe the evaluation metrics and explain why they are appropriate.
+<img src="figures/model_main_results_bars.svg" alt="Alt text" width="2000"/>
+<img src="figures/confusionMatrix.svg" alt="Alt text" width="2000"/>
 
-### 5.2.5     Model Comparison (14%)
-Describe how you compared the trained models, using tables and statistical graphics and/or other data visualisation methods.
+Logistic Regression showed slightly better overall metrics than SVM, especially in recall, which is particularly important for medical diagnosis.
 
-### 5.2.6     Conclusion and Discussion (10%)
-Summarise the project: what the project was about, what you did, what the results were, the major limitations of the approach you used, what could have been done to improve the procedure and the result, the lessons you learned through this project.
 
-### 5.2.7     References (2%)
-List all the external references.
+## Interpreting the Metrics
 
-Note: for any decision you made, provide clear and appropriate justifications. Marks are generally awarded for a good experimental procedure that supports the results, not for achieving the best performance. Deduction of the final mark may be made for not submitting files as requested, e.g., file names/extensions, report formatting (e.g., captions, etc.)
+* **Recall** indicates how many actual malignancies were correctly identified.
+* **Specificity** shows how many benign cases were correctly identified.
+* **MCC** provides a balanced metric that accounts for all four elements of the confusion matrix.
 
-### 5.3     Individual report in PDF up to 1 page (10%)
-The PDF file should have the name of [your_CIS_username].pdf, including 1 page, answering the following five questions. Submit your own report on Ultra.
+## Key Findings
 
-What are your contributions to the coursework?
-What have you learned from the lectures?
-What have you learned from the coursework?
-What are your difficulties in the module?
-What would you do differently if you were to do it again?
-### 5.4     Self- & Peer- Assessment (0%)
-Complete the assessment form on https://forms.office.com/r/Sd46AWxcb0 after you have completed the group report (as in Section 5.2). This will be used to produce your personal mark for the group report. This should be completed individually, and the information contained within will be kept confidential. If you do not provide it, your final personal mark will be deducted by 5%.
+* Logistic Regression, when combined with appropriate preprocessing, performed best overall.
+* PCA effectively reduced noise and computation while maintaining accuracy.
+* KNN demonstrated high specificity but lower recall, which is less desirable in this context.
+
+## Future Work
+
+* Validate findings on larger and more diverse datasets.
+* Explore a greater number of hyperparameter combinations.
+* Investigate deployment in clinical environments.
+
+## Acknowledgements
+
+* Dataset provided by the UCI Machine Learning Repository.
